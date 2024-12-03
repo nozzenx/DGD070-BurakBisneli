@@ -1,3 +1,4 @@
+using ECS.Components;
 using Entitas;
 using UnityEngine;
 
@@ -18,19 +19,25 @@ namespace ECS.Systems
 
             foreach (var entity in entities)
             {
-                if (entity.hasECSComponentsPlayerHealth) // if our entity has health component, increase or decrease health value.
-                {
-                    if (entity.isECSComponentsPlayerDamaged)
-                    {
-                        entity.eCSComponentsPlayerHealth.Value = Mathf.Max(entity.eCSComponentsPlayerHealth.Value -= 10, 0);
-                        if (entity.eCSComponentsPlayerHealth.Value <= 0)
-                            entity.Destroy();
-                    }
-                    
                 
-                    if(entity.isECSComponentsPlayerHealed)
-                        entity.eCSComponentsPlayerHealth.Value = Mathf.Min(entity.eCSComponentsPlayerHealth.Value += 10, 100);
+                if (entity.isECSComponentsPlayerDamaged)
+                {
+                    entity.eCSComponentsPlayerHealth.Value = Mathf.Max(entity.eCSComponentsPlayerHealth.Value -= 10, 0);
+                    
+                    if (entity.eCSComponentsPlayerHealth.Value <= 0)
+                        entity.Destroy();
+                    
+                    entity.isECSComponentsPlayerDamaged = false;
+                    
                 }
+
+
+                if (entity.isECSComponentsPlayerHealed)
+                {
+                    entity.eCSComponentsPlayerHealth.Value = Mathf.Min(entity.eCSComponentsPlayerHealth.Value += 10, 100);
+                    entity.isECSComponentsPlayerHealed = false;
+                }
+                
             }
         }
     }

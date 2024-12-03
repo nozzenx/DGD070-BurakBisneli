@@ -20,8 +20,10 @@ namespace ECS.Systems
             {
                 if(Input.GetKeyDown(KeyCode.D))
                     entity.isECSComponentsPlayerDamaged = true;
+                
                 if (Input.GetKeyDown(KeyCode.H))
                     entity.isECSComponentsPlayerHealed = true;
+                
                 
             }
 
